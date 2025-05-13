@@ -1,0 +1,71 @@
+#index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Welcome to the Animation Playground! 🎨✨</h1>
+
+    <button id="animateButton">Animate Me!</button>
+    <button id="savePreference">Save Animation Choice</button>
+
+    <div id="animatedBox"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+#styles.css
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+#animatedBox {
+    width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    margin: 20px auto;
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+.animate {
+    transform: rotate(360deg) scale(1.5);
+}
+
+// Select elements
+const animateButton = document.getElementById("animateButton");
+const animatedBox = document.getElementById("animatedBox");
+const savePreferenceButton = document.getElementById("savePreference");
+
+// Function to trigger animation
+function toggleAnimation() {
+    animatedBox.classList.toggle("animate");
+}
+
+// Store user preference in localStorage
+function saveAnimationPreference() {
+    const isAnimated = animatedBox.classList.contains("animate");
+    localStorage.setItem("animationState", isAnimated);
+    alert("Animation preference saved!");
+}
+
+// Retrieve preference on page load
+window.onload = function () {
+    const savedState = localStorage.getItem("animationState");
+    if (savedState === "true") {
+        animatedBox.classList.add("animate");
+    }
+};
+
+#script.jss
+// Attach event listeners
+animateButton.addEventListener("click", toggleAnimation);
+savePreferenceButton.addEventListener("click", saveAnimationPreference);
